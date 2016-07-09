@@ -2,13 +2,12 @@
 * @Author: CJ Ting
 * @Date:   2016-07-08 17:28:53
 * @Last Modified by:   CJ Ting
-* @Last Modified time: 2016-07-09 10:18:29
+* @Last Modified time: 2016-07-09 12:04:24
  */
 
 package alfred_test
 
 import (
-	"regexp"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -58,7 +57,7 @@ func TestJSON_SampleResponse(t *testing.T) {
 		},
 		Valid:        true,
 		Quicklookurl: "quicklookurl",
-		Mods: map[string]alfred.Mod{
+		Mods: alfred.Mods{
 			"cmd": {
 				Valid:    true,
 				Arg:      "arg",
@@ -93,65 +92,60 @@ func TestJSON_SampleResponse(t *testing.T) {
 
 	response.AddItem(item)
 
-	expectedResponse := `
-  {
-    "items": [
-      {
-        "uid": "uid",
+	expectedResponse := `{
+  "items": [
+    {
+      "uid": "uid",
+      "type": "type",
+      "title": "title",
+      "subtitle": "subtitle",
+      "arg": "arg",
+      "autocomplete": "autocomplete",
+      "icon": {
         "type": "type",
-        "title": "title",
-        "subtitle": "subtitle",
-        "arg": "arg",
-        "autocomplete": "autocomplete",
-        "icon": {
-          "type": "type",
-          "path": "path"
+        "path": "path"
+      },
+      "valid": true,
+      "quicklookurl": "quicklookurl",
+      "mods": {
+        "alt": {
+          "valid": true,
+          "arg": "arg",
+          "subtitle": "subtitle"
         },
-        "valid": true,
-        "quicklookurl": "quicklookurl",
-        "mods": {
-          "alt": {
-            "valid": true,
-            "arg": "arg",
-            "subtitle": "subtitle"
-          },
-          "cmd": {
-            "valid": true,
-            "arg": "arg",
-            "subtitle": "subtitle"
-          },
-          "ctrl": {
-            "valid": true,
-            "arg": "arg",
-            "subtitle": "subtitle"
-          },
-          "fn": {
-            "valid": true,
-            "arg": "arg",
-            "subtitle": "subtitle"
-          },
-          "shift": {
-            "valid": true,
-            "arg": "arg",
-            "subtitle": "subtitle"
-          }
+        "cmd": {
+          "valid": true,
+          "arg": "arg",
+          "subtitle": "subtitle"
         },
-        "text": {
-          "copy": "copy",
-          "largetype": "largetype"
+        "ctrl": {
+          "valid": true,
+          "arg": "arg",
+          "subtitle": "subtitle"
+        },
+        "fn": {
+          "valid": true,
+          "arg": "arg",
+          "subtitle": "subtitle"
+        },
+        "shift": {
+          "valid": true,
+          "arg": "arg",
+          "subtitle": "subtitle"
         }
+      },
+      "text": {
+        "copy": "copy",
+        "largetype": "largetype"
       }
-    ]
-  }
-  `
+    }
+  ]
+}`
 
 	jsonStr, err := response.JSON()
 	if err != nil {
 		t.Error(err)
 	}
 
-	re := regexp.MustCompile(`\s`)
-	trimedExpectedResponse := re.ReplaceAllString(expectedResponse, "")
-
-	assert.Equal(t, trimedExpectedResponse, jsonStr)
+	assert.Equal(t, expectedResponse, jsonStr)
 }
