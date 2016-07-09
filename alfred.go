@@ -1,8 +1,8 @@
 /*
 * @Author: CJ Ting
 * @Date:   2016-07-05 11:15:57
-* @Last Modified by:   dingxijin
-* @Last Modified time: 2016-07-08 19:44:08
+* @Last Modified by:   CJ Ting
+* @Last Modified time: 2016-07-09 09:59:35
  */
 
 package alfred
@@ -27,7 +27,7 @@ type Item struct {
 	Autocomplete string         `json:"autocomplete" xml:"autocomplete,attr"`
 	Icon         Icon           `json:"icon" xml:"icon"`
 	Valid        bool           `json:"valid,omitempty" xml:"valid,attr"`
-	Quicklookurl string         `json:"quicklookurl" xml:"quicklookurl"`
+	Quicklookurl string         `json:"quicklookurl,omitempty" xml:"quicklookurl"`
 	Mods         map[string]Mod `json:"mods,omitempty"`
 	Text         Text           `json:"text"`
 }
