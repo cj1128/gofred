@@ -2,21 +2,20 @@
 * @Author: CJ Ting
 * @Date:   2016-07-09 10:22:00
 * @Last Modified by:   CJ Ting
-* @Last Modified time: 2016-07-09 12:03:31
+* @Last Modified time: 2016-07-09 17:04:50
  */
 
-package alfred_test
+package alfred
 
 import (
 	"testing"
 
-	"github.com/fate-lovely/go-alfred"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestXML_Response(t *testing.T) {
-	response := alfred.Response{}
-	item := alfred.Item{}
+	response := Response{}
+	item := Item{}
 	response.AddItem(item)
 	_, err := response.XML()
 	if err != nil {
@@ -25,21 +24,21 @@ func TestXML_Response(t *testing.T) {
 }
 
 func TestXML_SampleResponse(t *testing.T) {
-	response := alfred.Response{}
-	item := alfred.Item{
+	response := Response{}
+	item := Item{
 		Uid:          "uid",
 		Type:         "type",
 		Title:        "title",
 		Subtitle:     "subtitle",
 		Arg:          "arg",
 		Autocomplete: "autocomplete",
-		Icon: alfred.Icon{
+		Icon: Icon{
 			Type: "type",
 			Path: "path",
 		},
 		Valid:        true,
 		Quicklookurl: "quicklookurl",
-		Mods: alfred.Mods{
+		Mods: Mods{
 			"cmd": {
 				Valid:    true,
 				Arg:      "arg",
@@ -66,7 +65,7 @@ func TestXML_SampleResponse(t *testing.T) {
 				Subtitle: "subtitle",
 			},
 		},
-		Text: alfred.Text{
+		Text: Text{
 			Copy:      "copy",
 			Largetype: "largetype",
 		},

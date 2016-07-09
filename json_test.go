@@ -2,37 +2,35 @@
 * @Author: CJ Ting
 * @Date:   2016-07-08 17:28:53
 * @Last Modified by:   CJ Ting
-* @Last Modified time: 2016-07-09 12:04:24
+* @Last Modified time: 2016-07-09 17:05:44
  */
 
-package alfred_test
+package alfred
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-
-	"github.com/fate-lovely/go-alfred"
 )
 
 func TestJSON_AddItem(t *testing.T) {
-	response := alfred.Response{}
-	item := alfred.Item{}
+	response := Response{}
+	item := Item{}
 	response.AddItem(item)
 	assert.Equal(t, 1, response.ItemLength(), "ItemLength should return items' length")
 }
 
 func TestJSON_ClearItems(t *testing.T) {
-	response := alfred.Response{}
-	item := alfred.Item{}
+	response := Response{}
+	item := Item{}
 	response.AddItem(item)
 	response.ClearItems()
 	assert.Equal(t, 0, response.ItemLength(), "ClearItems should clear all items")
 }
 
 func TestJSON_Response(t *testing.T) {
-	response := alfred.Response{}
-	item := alfred.Item{}
+	response := Response{}
+	item := Item{}
 	response.AddItem(item)
 
 	_, err := response.JSON()
@@ -42,22 +40,22 @@ func TestJSON_Response(t *testing.T) {
 }
 
 func TestJSON_SampleResponse(t *testing.T) {
-	response := alfred.Response{}
+	response := Response{}
 
-	item := alfred.Item{
+	item := Item{
 		Uid:          "uid",
 		Type:         "type",
 		Title:        "title",
 		Subtitle:     "subtitle",
 		Arg:          "arg",
 		Autocomplete: "autocomplete",
-		Icon: alfred.Icon{
+		Icon: Icon{
 			Type: "type",
 			Path: "path",
 		},
 		Valid:        true,
 		Quicklookurl: "quicklookurl",
-		Mods: alfred.Mods{
+		Mods: Mods{
 			"cmd": {
 				Valid:    true,
 				Arg:      "arg",
@@ -84,7 +82,7 @@ func TestJSON_SampleResponse(t *testing.T) {
 				Subtitle: "subtitle",
 			},
 		},
-		Text: alfred.Text{
+		Text: Text{
 			Copy:      "copy",
 			Largetype: "largetype",
 		},
