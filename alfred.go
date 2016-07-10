@@ -2,9 +2,10 @@
 * @Author: CJ Ting
 * @Date:   2016-07-05 11:15:57
 * @Last Modified by:   CJ Ting
-* @Last Modified time: 2016-07-09 12:09:43
+* @Last Modified time: 2016-07-10 19:53:15
  */
 
+// Package alfred provides utility functions and structs for writing alfred workflows
 package alfred
 
 import (
@@ -135,11 +136,11 @@ func (text Text) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	return nil
 }
 
-func (i *Item) AddMod(key string, item Mod) {
+func (i *Item) AddMod(key string, mod Mod) {
 	if i.Mods == nil {
 		i.Mods = make(map[string]Mod)
 	}
-	i.Mods[key] = item
+	i.Mods[key] = mod
 }
 
 var defaultResponse = Response{}
