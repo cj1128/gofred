@@ -2,6 +2,7 @@
 
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](http://mit-license.org/2016)
 [![Build Status](https://travis-ci.org/fate-lovely/go-alfred.svg?branch=master)](https://travis-ci.org/fate-lovely/go-alfred)
+[![Go Doc](https://godoc.org/github.com/fate-lovely/go-alfred?status.svg)](https://godoc.org/github.com/fate-lovely/go-alfred)
 
 a golang library for writing alfred workfl
 
@@ -13,7 +14,9 @@ go get github.com/fate-lovely/go-alfred
 
 ## Usage
 
-### Just add items and get JSON / XML response strings
+Read the [doc](https://godoc.org/github.com/fate-lovely/go-alfred)
+
+### Add items and get JSON / XML response strings
 
 ```go
 import "github.com/fate-lovely/go-alfred"
