@@ -2,12 +2,13 @@
 * @Author: CJ Ting
 * @Date:   2016-07-09 10:22:00
 * @Last Modified by:   CJ Ting
-* @Last Modified time: 2016-07-09 17:04:50
+* @Last Modified time: 2016-07-18 17:47:01
  */
 
 package alfred
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -21,6 +22,15 @@ func TestXML_Response(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+}
+
+// if uid is present but empty, alfred will adjust the order
+func TestXML_UIDOmitEmpty(t *testing.T) {
+	response := Response{}
+	item := Item{}
+	response.AddItem(item)
+	str, _ := response.XML()
+	assert.Equal(t, -1, strings.Index(str, "uid"))
 }
 
 func TestXML_SampleResponse(t *testing.T) {

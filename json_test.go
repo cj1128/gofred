@@ -2,12 +2,13 @@
 * @Author: CJ Ting
 * @Date:   2016-07-08 17:28:53
 * @Last Modified by:   CJ Ting
-* @Last Modified time: 2016-07-09 17:05:44
+* @Last Modified time: 2016-07-18 17:47:03
  */
 
 package alfred
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -37,6 +38,17 @@ func TestJSON_Response(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+}
+
+// if uid is present but empty, alfred will adjust the order
+func TestJSON_UIDOmitEmpty(t *testing.T) {
+	response := Response{}
+	item := Item{}
+	item.Title = "title"
+	response.AddItem(item)
+	str, _ := response.JSON()
+	strings.Index(str, "uid")
+	assert.Equal(t, -1, strings.Index(str, "uid"))
 }
 
 func TestJSON_SampleResponse(t *testing.T) {

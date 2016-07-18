@@ -2,7 +2,7 @@
 * @Author: CJ Ting
 * @Date:   2016-07-05 11:15:57
 * @Last Modified by:   CJ Ting
-* @Last Modified time: 2016-07-10 19:53:15
+* @Last Modified time: 2016-07-18 17:44:50
  */
 
 // Package alfred provides utility functions and structs for writing alfred workflows
@@ -21,7 +21,7 @@ type Response struct {
 
 type Item struct {
 	XMLName      xml.Name `json:"-" xml:"item"`
-	Uid          string   `json:"uid,omitempty" xml:"uid,attr"`
+	Uid          string   `json:"uid,omitempty" xml:"uid,attr,omitempty"`
 	Type         string   `json:"type,omitempty" xml:"type,attr"`
 	Title        string   `json:"title" xml:"title"`
 	Subtitle     string   `json:"subtitle" xml:"subtitle"`
