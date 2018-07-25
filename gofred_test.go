@@ -1,108 +1,98 @@
-/*
-* @Author: CJ Ting
-* @Date:   2016-07-08 17:28:53
-* @Last Modified by:   CJ Ting
-* @Last Modified time: 2016-07-18 17:47:03
- */
-
-package alfred
+package gofred
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestJSON_AddItem(t *testing.T) {
-	response := Response{}
-	item := Item{}
-	response.AddItem(item)
-	assert.Equal(t, 1, response.ItemLength(), "ItemLength should return items' length")
+func TestMinimalOutput(t *testing.T) {
+	res := New()
+	res.AddItem(&Item{
+		Title:    "title",
+		Subtitle: "subtitle",
+	})
+
+	json, err := res.JSON()
+	assert.Nil(t, err)
+	assert.Equal(t, `{
+  "items": [
+    {
+      "title": "title",
+      "subtitle": "subtitle"
+    }
+  ]
+}`, json)
 }
 
-func TestJSON_ClearItems(t *testing.T) {
-	response := Response{}
-	item := Item{}
-	response.AddItem(item)
-	response.ClearItems()
-	assert.Equal(t, 0, response.ItemLength(), "ClearItems should clear all items")
-}
-
-func TestJSON_Response(t *testing.T) {
-	response := Response{}
-	item := Item{}
-	response.AddItem(item)
-
-	_, err := response.JSON()
-	if err != nil {
-		t.Error(err)
+func TestFullOutput(t *testing.T) {
+	res := New()
+	res.Rerun = 1
+	res.Variables = map[string]string{
+		"key": "value",
 	}
-}
-
-// if uid is present but empty, alfred will adjust the order
-func TestJSON_UIDOmitEmpty(t *testing.T) {
-	response := Response{}
-	item := Item{}
-	item.Title = "title"
-	response.AddItem(item)
-	str, _ := response.JSON()
-	strings.Index(str, "uid")
-	assert.Equal(t, -1, strings.Index(str, "uid"))
-}
-
-func TestJSON_SampleResponse(t *testing.T) {
-	response := Response{}
-
-	item := Item{
+	res.AddItem(&Item{
 		Uid:          "uid",
 		Type:         "type",
 		Title:        "title",
 		Subtitle:     "subtitle",
 		Arg:          "arg",
 		Autocomplete: "autocomplete",
-		Icon: Icon{
+		Icon: &Icon{
 			Type: "type",
 			Path: "path",
 		},
 		Valid:        true,
 		Quicklookurl: "quicklookurl",
 		Mods: Mods{
-			"cmd": {
+			CmdKey: {
+				Valid:    true,
+				Arg:      "arg",
+				Subtitle: "subtitle",
+				Icon: &Icon{
+					Type: "cmdtype",
+					Path: "cmdpath",
+				},
+				Variables: map[string]string{
+					"cmdkey": "cmdvalue",
+				},
+			},
+			CtrlKey: {
+				Valid:    false,
+				Arg:      "arg",
+				Subtitle: "subtitle",
+			},
+			ShiftKey: {
 				Valid:    true,
 				Arg:      "arg",
 				Subtitle: "subtitle",
 			},
-			"ctrl": {
+			FnKey: {
 				Valid:    true,
 				Arg:      "arg",
 				Subtitle: "subtitle",
 			},
-			"shift": {
-				Valid:    true,
-				Arg:      "arg",
-				Subtitle: "subtitle",
-			},
-			"fn": {
-				Valid:    true,
-				Arg:      "arg",
-				Subtitle: "subtitle",
-			},
-			"alt": {
+			AltKey: {
 				Valid:    true,
 				Arg:      "arg",
 				Subtitle: "subtitle",
 			},
 		},
-		Text: Text{
+		Text: &Text{
 			Copy:      "copy",
 			Largetype: "largetype",
 		},
-	}
+	})
 
-	response.AddItem(item)
+	json, err := res.JSON()
+	assert.Nil(t, err)
 
-	expectedResponse := `{
+	// NOTE: `mods` order is decided by runtime
+	assert.Equal(t, `{
+  "rerurn": 1,
+  "variables": {
+    "key": "value"
+  },
   "items": [
     {
       "uid": "uid",
@@ -126,10 +116,17 @@ func TestJSON_SampleResponse(t *testing.T) {
         "cmd": {
           "valid": true,
           "arg": "arg",
-          "subtitle": "subtitle"
+          "subtitle": "subtitle",
+          "icon": {
+            "type": "cmdtype",
+            "path": "cmdpath"
+          },
+          "variables": {
+            "cmdkey": "cmdvalue"
+          }
         },
         "ctrl": {
-          "valid": true,
+          "valid": false,
           "arg": "arg",
           "subtitle": "subtitle"
         },
@@ -150,12 +147,5 @@ func TestJSON_SampleResponse(t *testing.T) {
       }
     }
   ]
-}`
-
-	jsonStr, err := response.JSON()
-	if err != nil {
-		t.Error(err)
-	}
-
-	assert.Equal(t, expectedResponse, jsonStr)
+}`, json)
 }

@@ -1,20 +1,20 @@
-# Go Alfred
+# Gofred
 
 [![License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](http://mit-license.org/2016)
 [![Build Status](https://travis-ci.org/fate-lovely/go-alfred.svg?branch=master)](https://travis-ci.org/fate-lovely/go-alfred)
 [![Go Doc](https://godoc.org/github.com/fate-lovely/go-alfred?status.svg)](https://godoc.org/github.com/fate-lovely/go-alfred)
 
-a golang library for writing alfred workfl
+A golang library for writing alfred workflow.
 
 ## Installation
 
 ```go
-go get github.com/fate-lovely/go-alfred
+go get github.com/fate-lovely/gofred
 ```
 
 ## Usage
 
-Read the [doc](https://godoc.org/github.com/fate-lovely/go-alfred)
+Read the [doc](https://godoc.org/github.com/fate-lovely/gofred).
 
 ### Add items and get JSON / XML response strings
 
@@ -64,6 +64,10 @@ func main() {
   // xmlStr, err := res.XML()
 }
 ```
+
+## 
+
+- https://www.alfredapp.com/help/workflows/inputs/script-filter/json/
 
 ## License
 
