@@ -11,6 +11,7 @@ func TestMinimalOutput(t *testing.T) {
 	res.AddItem(&Item{
 		Title:    "title",
 		Subtitle: "subtitle",
+		Valid:    true,
 	})
 
 	json, err := res.JSON()
@@ -19,7 +20,8 @@ func TestMinimalOutput(t *testing.T) {
   "items": [
     {
       "title": "title",
-      "subtitle": "subtitle"
+      "subtitle": "subtitle",
+      "valid": true
     }
   ]
 }`, json)
@@ -42,7 +44,7 @@ func TestFullOutput(t *testing.T) {
 			Type: "type",
 			Path: "path",
 		},
-		Valid:        true,
+		Valid:        false,
 		Quicklookurl: "quicklookurl",
 		Mods: Mods{
 			CmdKey: {
@@ -105,7 +107,7 @@ func TestFullOutput(t *testing.T) {
         "type": "type",
         "path": "path"
       },
-      "valid": true,
+      "valid": false,
       "quicklookurl": "quicklookurl",
       "mods": {
         "alt": {
