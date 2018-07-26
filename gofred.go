@@ -44,7 +44,7 @@ const (
 	ShiftKey modKey = "shift"
 )
 
-type Mods map[modKey]Mod
+type Mods map[modKey]*Mod
 
 type Mod struct {
 	Valid     bool              `json:"valid"`
@@ -59,9 +59,9 @@ type Text struct {
 	Largetype string `json:"largetype"`
 }
 
-func (i *Item) AddMod(key modKey, mod Mod) {
+func (i *Item) AddMod(key modKey, mod *Mod) {
 	if i.Mods == nil {
-		i.Mods = make(map[modKey]Mod)
+		i.Mods = make(map[modKey]*Mod)
 	}
 	i.Mods[key] = mod
 }
