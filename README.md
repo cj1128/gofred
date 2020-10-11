@@ -9,7 +9,7 @@ A golang library for writing alfred workflow.
 ## Installation
 
 ```go
-go get github.com/fate-lovely/gofred
+go get github.com/cj1128/gofred
 ```
 
 ## Doc
